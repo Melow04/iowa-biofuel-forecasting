@@ -9,7 +9,7 @@ Made by **Fortune Analytics** at FEU Institute of Technology (Analytics Tools an
 
 Team: Aldave, Adrian | Cortes, Karmelo | Mangubat, John Erick | Villa, Daniel
 
-**My role:** Co-Researcher and Lead Data Analyst (Karmelo Cortes).
+**My role:** Co-Researcher, Lead Data Analyst and Lead Developer (Karmelo Cortes).
 
 ## Data
 
