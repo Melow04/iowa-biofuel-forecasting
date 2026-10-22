@@ -1,204 +1,99 @@
-# 🌽 Iowa Motor Fuel Sales Dashboard
+# Iowa Biofuel Distribution: Dashboard and Machine Learning Analysis
 
-A comprehensive Python dashboard application for analyzing Iowa Motor Fuel Sales data with both descriptive and predictive analytics capabilities.
-## Made by Fortune Analytics:
-- Aldave, Adrian
-- Cortes, Karmelo
-- Mangubat, John Erick
-- Villa, Daniel
+An analysis of Iowa motor fuel sales by county, 2012-2024, in two parts:
 
-![Dashboard Preview](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Plotly](https://img.shields.io/badge/Plotly-239120?style=for-the-badge&logo=plotly&logoColor=white)
+1. **An interactive Streamlit dashboard** for exploring fuel sales, county patterns and biofuel adoption.
+2. **A machine learning notebook** that predicts county-level biofuel distribution and forecasts the statewide trend to 2030.
 
-## 🚀 New Features & Updates
+Made by **Fortune Analytics** at FEU Institute of Technology (Analytics Tools and Techniques, IT0095).
 
-### ✨ **Latest Enhancements**
-- **🎯 Advanced Year Filtering**: All Years, Year Range, or Single Year selection
-- **🏪 Enhanced Retail Analysis**: Multi-dimensional correlation analysis with visual metrics
-- **📊 Interactive Visualizations**: Bubble charts, dual-axis plots, and trend lines
-- **🔍 Sales Efficiency Metrics**: Sales per retail location analysis
-- **📈 Correlation Insights**: Automated strength interpretation and color coding
-- **🎨 Professional Styling**: Gradient backgrounds and improved visual design
+Team: Aldave, Adrian | Cortes, Karmelo | Mangubat, John Erick | Villa, Daniel
 
-## 📊 Features
+**My role:** Co-Researcher and Lead Data Analyst (Karmelo Cortes).
 
-### 🔍 Descriptive Analytics
-- **📈 Trend Analysis**: Interactive line charts showing fuel sales trends and biofuel distribution over time
-- **🗺️ County Insights**: Top 10 counties by fuel sales and biofuel distribution percentage
-- **⛽ Fuel Comparison**: Stacked area charts and pie charts showing fuel mix composition
-- **🏪 Advanced Retail Analysis**: 
-  - Multi-dimensional correlation analysis
-  - Sales efficiency metrics (sales per location)
-  - Distribution analysis across counties
-  - Visual correlation strength indicators
-  - Dual-axis visualizations combining multiple metrics
+## Data
 
-### 🔮 Predictive Analytics
-- **Machine Learning Models**: Random Forest and Linear Regression algorithms
-- **Future Predictions**: Biofuel distribution percentage forecasts for 2025-2027
-- **Model Performance**: MAE and R² scores comparison
-- **Feature Importance**: Analysis of key predictive factors
+- **Source:** [Iowa Motor Fuel Sales by County and Year](https://data.iowa.gov/Sales-Distribution/Iowa-Motor-Fuel-Sales-by-County-and-Year/hbwp-wys3/about_data), reported to the Iowa Department of Revenue and published on data.iowa.gov.
+- **Coverage:** 2012-2024, 99 Iowa counties plus aggregated groups, 9 attributes.
+- **Target:** Biofuel Distribution Percentage, the share of motor fuel sales made up of pure ethanol and pure biodiesel.
+- **`Cleaned_Iowa_Motor_Fuel_Sales.csv`** (in this repo, 1,273 records) is the cleaned file the dashboard reads.
+- The notebook starts from the raw download. See [`data/README.md`](data/README.md).
 
-### 🎨 Dashboard Features
-- **📅 Flexible Year Filtering**: 
-  - All Years: Complete dataset analysis
-  - Year Range: Custom date range selection
-  - Single Year: Focus on specific year
-- **Interactive Visualizations**: Built with Plotly for rich, interactive charts
-- **Sidebar Navigation**: Easy switching between analysis types
-- **Real-time Data Loading**: Automatically processes CSV data
-- **Responsive Design**: Multi-column layouts optimized for different screen sizes
-- **Professional Styling**: Clean, modern interface with custom CSS and gradients
+## Part 1: Interactive dashboard
 
-## 📋 Dataset Information
+A Streamlit app built with Plotly. Use the sidebar to switch between descriptive and predictive views and to filter by all years, a year range or a single year.
 
-- **Records**: 1,273+ fuel sales records
-- **Coverage**: All Iowa counties (99 counties)
-- **Time Period**: Multi-year historical data (2010-2023)
-- **Fuel Types**: 5 categories including ethanol, biodiesel, and traditional fuels
-- **Data Source**: Iowa Motor Fuel Sales (Cleaned dataset)
+**Descriptive analytics**
+- **Trend analysis:** fuel sales by type and biofuel distribution over time.
+- **County insights:** top counties by fuel sales and by biofuel distribution.
+- **Fuel comparison:** how the fuel mix changed, with stacked area and pie charts.
+- **Retail analysis:** correlations between retail locations, sales and biofuel share, plus sales per location.
 
-### 📊 Data Schema
-- **Calendar Year**: Year of record
-- **County**: Iowa county name
-- **Number of Retail Locations**: Count of fuel retail locations
-- **Fuel Sales Data**: 
-  - Non-Ethanol Gasoline Sales (gallons)
-  - Ethanol Gasoline Sales (gallons)
-  - Clear and Dyed Diesel Sales (gallons)
-  - Clear and Dyed Biodiesel Sales (gallons)
-  - Pure Biodiesel Sales (gallons)
-- **Biofuel Distribution Percentage**: Share of biofuels in total fuel mix
+**Predictive analytics:** Random Forest and Linear Regression models compared on MAE and R², feature importance, and biofuel distribution forecasts for 2025-2027.
 
-## 🚀 Quick Start
+### Run the dashboard
 
-### Option 1: One-Click Setup (Windows)
-1. Download all files to a folder
-2. Double-click `run_dashboard.bat`
-3. Dashboard opens automatically in your browser
-
-### Option 2: Manual Setup
-\`\`\`bash
-# Install dependencies
+```bash
+git clone https://github.com/Melow04/iowa_fuel.git
+cd iowa_fuel
 pip install -r requirements.txt
-
-# Run the dashboard
 streamlit run dashboard.py
-\`\`\`
+```
 
-### Option 3: Step-by-Step
-1. **Create project folder**
-   \`\`\`bash
-   mkdir iowa-fuel-dashboard
-   cd iowa-fuel-dashboard
-   \`\`\`
+## Part 2: Machine learning analysis
 
-2. **Save the files**
-   - Copy `dashboard.py` to the folder
-   - Copy `requirements.txt` to the folder
-   - Copy your CSV data file as `Cleaned_Iowa_Motor_Fuel_Sales.csv`
+The full analysis is in [`notebooks/Fortune_Analytics_IOWA.ipynb`](notebooks/Fortune_Analytics_IOWA.ipynb).
 
-3. **Install and run**
-   \`\`\`bash
-   pip install -r requirements.txt
-   streamlit run dashboard.py
-   \`\`\`
+**Method**
+1. **Cleaning:** fixed a column name, treated missing sales values and retail counts as zero, handled the aggregated "Other" county group, and removed outliers.
+2. **Feature engineering:** total fuel sales, biofuel, ethanol-to-gasoline and biodiesel-to-diesel ratios, sales per location, encoded county, a year ordinal and a previous-year lag feature.
+3. **Exploration:** temporal trends, growth rates, county rankings and correlation analysis.
+4. **Modeling:** Random Forest Regression for county-level prediction and feature importance, and Linear Regression for the yearly trend. Numeric predictors were standardized.
+5. **Evaluation:** R², RMSE, MAE and MAPE on an 80/20 split, plus cross-validation.
 
-## 📦 Requirements
+**Results**
 
-### Python Packages
-- **streamlit** ≥1.28.0 - Web app framework
-- **pandas** ≥1.5.0 - Data manipulation and analysis
-- **numpy** ≥1.24.0 - Numerical computing
-- **plotly** ≥5.15.0 - Interactive visualizations
-- **scikit-learn** ≥1.3.0 - Machine learning algorithms
-- **requests** ≥2.31.0 - HTTP requests for data loading
+| Model | Split | R² | RMSE | MAE | MAPE |
+| --- | --- | --- | --- | --- | --- |
+| Random Forest | Train (80%) | 0.9024 | 0.0173 | 0.0090 | 6.37% |
+| Random Forest | Test (20%) | 0.7471 | 0.0284 | 0.0163 | 11.76% |
+| Linear Regression (yearly trend) | Test | 0.9516 | 0.0039 | 0.0030 | 2.25% |
 
-### System Requirements
-- **Python**: 3.8 or higher
-- **RAM**: 4GB minimum (8GB recommended)
-- **Storage**: 100MB free space
-- **Internet**: Optional (for enhanced features)
+**Key findings**
+- Average biofuel distribution rose steadily from 2013 to 2024, at roughly 0.5 percentage points a year on the linear trend. The forecast reaches about **19% by 2030**, up from about 16% in 2025.
+- The previous year's value is by far the strongest predictor in the Random Forest (about **88% of feature importance**), so the model behaves like an autoregressive one.
+- The biodiesel-to-diesel ratio (r = 0.521) and sales per location (r = 0.484) are most closely tied to adoption. The raw number of retail locations (r = 0.021) is not.
+- The model predicts the fastest growth in Johnson, Montgomery and Monroe counties for 2025.
 
-## 🎯 How to Use
+**Limitations**
+- Because the model leans on last year's value, it may miss early growth in counties with low adoption history.
+- The train/test split is random across county-year rows, not time-based.
+- The trend model is fit on 12 yearly averages, so its forecasts are a baseline and not a precise prediction.
+- Pricing, demographic and station-level data were not included and could explain the largest errors (for example in Fremont and Poweshiek counties).
 
-### 1. Year Filtering (New!)
-- **All Years**: Analyze complete dataset
-- **Year Range**: Select custom date range with slider
-- **Single Year**: Focus on specific year analysis
+### Run the notebook
 
-### 2. Navigation
-- Use the **sidebar** to switch between analysis types
-- Select **"📊 Descriptive Analytics"** for historical insights
-- Choose **"🔮 Predictive Analytics"** for future forecasts
+```bash
+pip install -r requirements-notebook.txt
+```
 
-### 3. Descriptive Analytics Options
-- **📈 Trend Analysis**: View fuel sales trends over time
-- **🗺️ County Insights**: Explore county-level performance
-- **⛽ Fuel Comparison**: Compare different fuel types
-- **🏪 Retail Analysis**: Advanced retail location analysis with correlations
-- **📋 All Descriptive**: View all descriptive analytics at once
+Download the raw CSV into `data/` (see `data/README.md`), then open `notebooks/Fortune_Analytics_IOWA.ipynb` in Jupyter or Google Colab and run all cells.
 
-### 4. Enhanced Retail Analysis Features
-- **Correlation Metrics**: Visual cards showing relationship strength
-- **Bubble Charts**: Multi-dimensional scatter plots
-- **Efficiency Analysis**: Sales per retail location metrics
-- **Distribution Analysis**: Histogram of retail locations
-- **Dual-Axis Charts**: Combined location and biofuel percentage views
+## Repository structure
 
-### 5. Interactive Features
-- **Hover** over charts for detailed information
-- **Zoom and pan** on visualizations
-- **Legend clicking** to show/hide data series
-- **Responsive design** adapts to your screen size
-- **Year filtering** updates all visualizations dynamically
+```
+iowa_fuel/
+├── README.md
+├── dashboard.py                        # Streamlit dashboard
+├── Cleaned_Iowa_Motor_Fuel_Sales.csv   # cleaned data used by the dashboard
+├── requirements.txt                    # dashboard dependencies
+├── requirements-notebook.txt           # notebook dependencies
+├── data/
+│   └── README.md                       # how to get the raw dataset
+└── notebooks/
+    └── Fortune_Analytics_IOWA.ipynb    # full ML analysis
+```
 
-## 📈 Key Insights Available
+## Tools
 
-### Trend Analysis
-- Annual fuel sales by type (millions of gallons)
-- Biofuel distribution percentage growth over time
-- Seasonal patterns and long-term trends
-- Year-over-year comparisons
-
-### County Performance
-- Top performing counties by total fuel sales
-- Counties with highest biofuel adoption rates
-- Geographic distribution patterns
-- County-specific year filtering
-
-### Fuel Mix Analysis
-- Composition of fuel types over time
-- Market share evolution
-- Biofuel vs traditional fuel trends
-- Temporal fuel mix changes
-
-### Advanced Retail Insights
-- **Correlation Analysis**: 
-  - Retail locations vs total fuel sales
-  - Retail locations vs biofuel distribution percentage
-  - Automated correlation strength interpretation
-- **Efficiency Metrics**: Sales per retail location by county
-- **Distribution Patterns**: Retail location spread across counties
-- **Performance Benchmarking**: Top performing counties by efficiency
-
-### Predictive Insights
-- Future biofuel distribution forecasts (2025-2027)
-- Model accuracy metrics and comparisons
-- Key factors influencing predictions
-- Feature importance analysis
-
-## 🔧 Technical Enhancements
-
-### New Correlation Analysis System
-```python
-def calculate_correlation(x, y):
-    """Calculate correlation coefficient manually"""
-    # Handles missing data and edge cases
-    # Returns robust correlation values
-
-def get_correlation_interpretation(correlation):
-    """Interpret correlation strength with color coding"""
-    # Very Strong (≥0.8), Strong (≥0.6), Moderate (≥0.4), etc.
-    # Returns interpretation and color for visual display
+Python, Streamlit, Plotly, pandas, NumPy, scikit-learn, SciPy, matplotlib, seaborn, Google Colab.
