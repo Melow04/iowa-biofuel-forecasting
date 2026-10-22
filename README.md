@@ -1,4 +1,4 @@
-# Iowa Biofuel Distribution: Dashboard and Machine Learning Analysis
+# Iowa Biofuel Adoption: County-Level Forecasting and Dashboard
 
 An analysis of Iowa motor fuel sales by county, 2012-2024, in two parts:
 
@@ -34,8 +34,8 @@ A Streamlit app built with Plotly. Use the sidebar to switch between descriptive
 ### Run the dashboard
 
 ```bash
-git clone https://github.com/Melow04/iowa_fuel.git
-cd iowa_fuel
+git clone https://github.com/Melow04/iowa-biofuel-forecasting.git
+cd iowa-biofuel-forecasting
 pip install -r requirements.txt
 streamlit run dashboard.py
 ```
@@ -82,7 +82,7 @@ Download the raw CSV into `data/` (see `data/README.md`), then open `notebooks/F
 ## Repository structure
 
 ```
-iowa_fuel/
+iowa-biofuel-forecasting/
 ├── README.md
 ├── dashboard.py                        # Streamlit dashboard
 ├── Cleaned_Iowa_Motor_Fuel_Sales.csv   # cleaned data used by the dashboard
